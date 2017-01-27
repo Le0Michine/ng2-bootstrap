@@ -126,7 +126,7 @@ export class SortableComponent implements ControlValueAccessor {
     if (!this.transfer.getItem()) {
       return;
     }
-    event.preventDefault();
+    this.cancelEvent(event);
     let dragItem = this.transfer.captureItem(this.currentZoneIndex, this.items.length);
     let newArray: any[] = [];
     if (!this.items.length) {
@@ -210,7 +210,9 @@ export class SortableComponent implements ControlValueAccessor {
     // it is necessary for mozilla
     // data type should be 'Text' instead of 'text/plain' to keep compatibility
     // with IE
-    event.dataTransfer.setData('Text', 'placeholder');
+    if (event) {
+      event.dataTransfer.setData('Text', 'placeholder');
+    }
   }
 }
 
